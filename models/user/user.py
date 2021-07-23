@@ -8,19 +8,14 @@ from models.abc.model import Model
 @dataclass
 class UserModel:
     _name: str
+    _email: str
     _password: str
 
 
 class User(UserModel, Model):
 
-    def json(self) -> Dict:
-        return {
-            "name": self._name,
-            "password": self._password
-        }
-
     def save_to_db(self) -> None:
-        add_user(self._name, self._password)
+        add_user(self._name, self._email, self._password)
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":
@@ -28,9 +23,9 @@ class User(UserModel, Model):
         return User(user, password)
 
     @classmethod
-    def valid_login(cls, username: str, password: str):
+    def valid_login(cls, name_email: str, password: str):
 
-        user = cls.find_from_db(username)
+        user = cls.find_from_db(name_email)
 
         if hmac.compare_digest(user._password, password):
             return True
