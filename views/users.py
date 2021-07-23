@@ -17,7 +17,6 @@ def login_post():
 
 
 @user_blueprint.get('/logout')
-@requires_login
 def logout():
     UserLogic.logout()
     return redirect(url_for('users.login_get'))

@@ -5,7 +5,7 @@
       <form class="contactus contactus--decor contactus--facebook" name="registerForm" method="POST" action="{{ url_for('users.login_get') }}">
     <!--    <div class="contactus__inner contactus__inner&#45;&#45;facebook " id="dataholder">-->
           <input class="contactus__inner-item contactus__inner-username data" type="text"
-                 placeholder="Username" name="username" autocomplete="on" id="username">
+                 placeholder="Username/Email" name="name_email" autocomplete="on" id="name_email">
           <input class="contactus__inner-item contactus__inner-email data" type="text"
                  placeholder="Password" name="password" autocomplete="on" id="password">
     <!--      <input class="contactus__inner-item contactus__inner-email data" type="email" placeholder="Email"-->
@@ -19,7 +19,7 @@
     <!--             placeholder="Confirm Password" name="confirm" autocomplete="on" id="passwordConfirm"-->
     <!--             data-required="passwordConfirm"-->
     <!--             data-invalid-message="Password and password confirmation should much!">-->
-          <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Register"
+          <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Submit"
                  name="btn" id="submitForm">
       </form>
     </div>
