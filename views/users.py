@@ -15,6 +15,16 @@ def login_post():
     UserLogic.login()
     return login_get()
 
+@user_blueprint.get('/register')
+def register_get():
+    return render_template('user/register.html')
+
+
+@user_blueprint.post('/register')
+def register_post():
+    UserLogic.register()
+    return register_get()
+
 
 @user_blueprint.get('/logout')
 def logout():
