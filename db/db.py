@@ -17,7 +17,7 @@ INSERT_USER = "INSERT INTO users (username, email, password) VALUES (?, ?, ?);"
 
 SELECT_ALL_USERS = "SELECT * FROM users;"
 
-SELECT_USER = "SELECT * FROM users WHERE username = (?) OR email = (?);"
+SELECT_USER = "SELECT * FROM users WHERE (?) IN (username, email);"
 
 
 def create_table() -> None:

@@ -1,5 +1,4 @@
-from typing import Dict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from werkzeug.security import hmac
 from db.db import add_user, get_user
 from models.abc.model import Model
@@ -9,7 +8,7 @@ from models.abc.model import Model
 class UserModel:
     _name: str
     _email: str
-    _password: str
+    _password: str = field(repr=False)
 
 
 class User(UserModel, Model):
@@ -19,11 +18,11 @@ class User(UserModel, Model):
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":
-        user, password = get_user(name)
-        return User(user, password)
+        user, email, password = get_user(name)
+        return User(user, email, password)
 
     @classmethod
-    def valid_login(cls, name_email: str, password: str):
+    def valid_login(cls, name_email: str, password: str) -> bool:
 
         user = cls.find_from_db(name_email)
 
