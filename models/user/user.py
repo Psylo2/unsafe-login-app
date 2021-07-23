@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from werkzeug.security import hmac
-from db.db import add_user, get_user
+from db.db import add_user, get_user, update_user
 from models.abc.model import Model
 
 
@@ -22,13 +22,10 @@ class User(UserModel, Model):
         return User(user, email, password)
 
     @classmethod
+    def update_password(cls) -> None:
+        update_user(cls._name, cls._password)
+
+    @classmethod
     def valid_login(cls, name_email: str, password: str) -> bool:
-
         user = cls.find_from_db(name_email)
-
-        if hmac.compare_digest(user._password, password):
-            return True
-        else:
-            return False
-
-
+        return hmac.compare_digest(user._password, password)

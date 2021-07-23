@@ -15,6 +15,7 @@ def login_post():
     UserLogic.login()
     return login_get()
 
+
 @user_blueprint.get('/register')
 def register_get():
     return render_template('user/register.html')
@@ -24,6 +25,17 @@ def register_get():
 def register_post():
     UserLogic.register()
     return register_get()
+
+
+@user_blueprint.get('/change_password')
+def change_password_get():
+    return render_template('user/change_password.html')
+
+
+@user_blueprint.post('/change_password')
+def change_password_post():
+    UserLogic.change_password()
+    return change_password_get()
 
 
 @user_blueprint.get('/logout')
