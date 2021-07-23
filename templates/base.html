@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/front/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>P&K Base</title>
+</head>
+<body>
+<div class="header__bottom">
+    <div class="container">
+        <ul class="menu-categories">
+            <li class="menu-categories__item">
+                <a href="/" class="menu-categories__link">Home</a>
+            </li>
+            <li class="menu-categories__item">
+                <a href="{{ url_for('users.login_get') }}" class="menu-categories__link">Login</a>
+            </li>
+            {% if session['username'] %}
+                <li class="menu-categories__item">
+                <a href="{{ url_for('users.logout') }}" class="menu-categories__link">Logout </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="mt-3">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>
