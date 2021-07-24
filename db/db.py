@@ -39,6 +39,13 @@ def get_user(name_email: str) -> connection.cursor():
         return cursor.fetchone()
 
 
+def get_all_users() -> connection.cursor():
+    with connection:
+        cursor = connection.cursor()
+        cursor.execute(SELECT_ALL_USERS)
+        return cursor.fetchall()
+
+
 def update_user(name_email: str, password: str) -> None:
     with connection:
         connection.execute(UPDATE_USER, (password, name_email))

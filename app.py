@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 from views.users import user_blueprint
+from views.admins import admin_blueprint
+
+from models.user import User
 
 app = Flask(__name__)
 
@@ -13,6 +16,9 @@ def home():
 
 app.register_blueprint(user_blueprint,
                        url_prefix="/users")
+
+app.register_blueprint(admin_blueprint,
+                       url_prefix="/admin")
 
 if __name__ == '__main__':
     app.run(port=5000)
