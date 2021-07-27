@@ -1,7 +1,7 @@
 @import "reset";
 @import "minreset";
 @import "fonts";
-
+a:hover { text-decoration: none; }
 body {
   color: #2f3035;
   font-family: "SFProDisplay-Regular", sans-serif;
@@ -36,6 +36,7 @@ body {
   font-weight: 400;
   padding: 15px 0 14px;
   position: relative;
+  text-decoration: none; /* Отменяем подчеркивание у ссылки */
 }
 
 .menu-categories__link::before {
@@ -53,6 +54,7 @@ body {
 .menu-categories__link:hover {
   font-family: "SFProDisplay-Semibold", sans-serif;
   color: black;
+  text-decoration: none; /* Отменяем подчеркивание у ссылки */
 }
 
 .menu-categories__link:hover::before {

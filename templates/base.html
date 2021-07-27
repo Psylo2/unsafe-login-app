@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/front/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/front/css/style.css">
     <title>P&K Base</title>
 </head>
 <body>
 <div class="header__bottom">
     <div class="container">
         <ul class="menu-categories">
+                        <li class="menu-categories__item">
+                <a href="{{ url_for('users.register_get') }}" class="menu-categories__link">REGISTERDUBUG </a>
+                </li>
             <li class="menu-categories__item">
                 <a href="/" class="menu-categories__link">Home</a>
             </li>
