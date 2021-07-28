@@ -1,6 +1,7 @@
 from abc import ABCMeta
 from typing import TypeVar, Type, List, Dict
-from db.db import get_user, get_all_users
+from db.db import (get_user, get_all_users, get_password,
+                   get_all_passwords, get_headers)
 
 T = TypeVar('T', bound="Model")
 
@@ -11,15 +12,23 @@ class Model(metaclass=ABCMeta):
         raise NotImplementedError
 
     @classmethod
-    def find_one_by(cls: Type[T], name_email: str) -> T:
-        user = get_user(name_email)
-        return cls(**cls.strip_tup(user))
+    def find_one_by(cls: Type[T], one: str, header: str) -> T:
+        if header == "users":
+            database = get_user(one)
+        else:
+            database = get_password(one)
+        headers = get_headers(header) #"passwords" or "users"
+        return cls(**cls.strip_tup(headers, database))
 
     @classmethod
-    def find_many_by(cls: Type[T]) -> List[T]:
-        users = get_all_users()
-        return [cls(**cls.strip_tup(user)) for user in users]
+    def find_many_by(cls: Type[T], header: str) -> List[T]:
+        if header == "users":
+            database = get_all_users()
+        else:
+            database = get_all_passwords()
+        headers = get_headers(header) #"passwords" or "users"
+        return [cls(**cls.strip_tup(headers, ele)) for ele in database]
 
     @classmethod
-    def strip_tup(cls: Type[T], tup: tuple) -> Dict:
-        return {"_name": tup[0], "_email": tup[1], "_password": tup[2], "_blocked": tup[3]}
+    def strip_tup(cls: Type[T], headers: List, database: List) -> Dict:
+        return {headers[i]: database[i] for i in range(len(headers))}
