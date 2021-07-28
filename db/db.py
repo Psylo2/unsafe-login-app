@@ -4,6 +4,7 @@
 # db = SQLAlchemy()
 
 import sqlite3
+from typing import List
 
 connection = sqlite3.connect("login.db", check_same_thread=False)
 
@@ -58,3 +59,8 @@ def update_user(name_email: str, password: str) -> None:
     with connection:
         connection.execute(UPDATE_PASSWORD, (name_email, password))
         connection.commit()
+        
+def get_headers(database: str) -> List:
+    with connection:
+        cursor = connection.execute(f"select * from {database}")
+        return list(map(lambda x: x[0], cursor.description))
