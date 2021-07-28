@@ -11,15 +11,25 @@ class Model(metaclass=ABCMeta):
         raise NotImplementedError
 
     @classmethod
-    def find_one_by(cls: Type[T], name_email: str) -> T:
-        user = get_user(name_email)
-        return cls(**cls.strip_tup(user))
+    def find_one_by(cls: Type[T], one: str, database: str) -> T:
+        if database == "user":
+            database = get_user(one)
+            headers = user_headers()
+        else:
+            database = get_password(one)
+            headers = password_headers()
+        return cls(**cls.strip_tup(headers, database))
 
     @classmethod
-    def find_many_by(cls: Type[T]) -> List[T]:
-        users = get_all_users()
-        return [cls(**cls.strip_tup(user)) for user in users]
+    def find_many_by(cls: Type[T], database: str) -> List[T]:
+        if database == "user":
+            database = get_all_users()
+            headers = user_headers()
+        else:
+            database = get_all_passwords()
+            headers = password_headers()
+        return [cls(**cls.strip_tup(headers, ele)) for ele in database]
 
     @classmethod
-    def strip_tup(cls: Type[T], tup: tuple) -> Dict:
-        return {"_name": tup[0], "_email": tup[1], "_password": tup[2], "_blocked": tup[3]}
+    def strip_tup(cls: Type[T], headers: List, database: List) -> Dict:
+        return {headers[i]: database[i] for i in range(len(headers))}
