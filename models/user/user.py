@@ -20,7 +20,7 @@ class User(UserModel, Model):
 
     def save_to_db(self) -> None:
         if _password.confirm_password():
-            add_user(self._name, self._email, self._password)
+            add_user(self._name, self._email, self._password, self._blocked)
 
     def block_user_model(self) -> None:
         block_user(self._name, 1)
@@ -30,11 +30,11 @@ class User(UserModel, Model):
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":
-        return cls.find_one_by(name)
+        return cls.find_one_by(name, "user")
 
     @classmethod
     def find_all_from_db(cls) -> List["User"]:
-        return cls.find_many_by()
+        return cls.find_many_by("user")
 
     @classmethod
     def update_password(cls) -> None:
