@@ -6,7 +6,6 @@ app = Flask(__name__)
 
 app.secret_key = "pablo"
 
-
 @app.get('/')
 def home():
     return render_template('home.html')

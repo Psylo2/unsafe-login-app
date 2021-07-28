@@ -27,8 +27,20 @@ class Model(metaclass=ABCMeta):
         else:
             database = get_all_passwords()
         headers = get_headers(header) #"passwords" or "users"
-        return [cls(**cls.strip_tup(headers, ele)) for ele in database]
+        return [cls(**cls.strip_tup(headers, database))]
 
     @classmethod
     def strip_tup(cls: Type[T], headers: List, database: List) -> Dict:
-        return {headers[i]: database[i] for i in range(len(headers))}
+        ret = {}
+
+        if type(database) is list:
+            for i in range(len(database)):
+                for j in range(len(database[i])):
+                    ret.update({headers[j]: database[i][j]})
+
+        if type(database) is tuple:
+            for i in range(len(database)):
+                print(headers[i], database[i])
+                ret.update({headers[i]: database[i]})
+
+        return ret
