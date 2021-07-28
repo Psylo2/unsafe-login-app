@@ -2,8 +2,6 @@ from flask import Flask, render_template
 from views.users import user_blueprint
 from views.admins import admin_blueprint
 
-from models.user import User
-
 app = Flask(__name__)
 
 app.secret_key = "pablo"

@@ -22,4 +22,4 @@ class Model(metaclass=ABCMeta):
 
     @classmethod
     def strip_tup(cls: Type[T], tup: tuple) -> Dict:
-        return {"_name": tup[0], "_email": tup[1], "_password": tup[2]}
+        return {"_name": tup[0], "_email": tup[1], "_password": tup[2], "_blocked": tup[3]}

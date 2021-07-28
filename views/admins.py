@@ -5,9 +5,6 @@ from models.password import AdminLogic
 admin_blueprint = Blueprint('admin', __name__)
 
 
-# @admin_blueprint.get('/all_users')
-# def all_users_get():
-#     return render_template('admin/all_users.html')
 
 @admin_blueprint.get('/password_config')
 def password_conf_get():

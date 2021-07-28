@@ -1,4 +1,4 @@
-from flask import session, request, url_for, redirect, flash
+from flask import session, request, url_for, redirect, flash, render_template
 
 from utils.user_utils import LoginUtils, RegisterUtils
 from models.user import User
@@ -55,3 +55,19 @@ def change_password():
 
 def logout():
     session['name_email'] = None
+
+
+def users_list():
+    _users = User.find_many_by()
+    session['block_user'] = None
+    return render_template('password/user_list.html', users=_users)
+
+def block_user():
+    User.find_from_db(session['block_user']).block_user_model()
+
+    return redirect(url_for('users.all_users_get'))
+
+def unblock_user():
+    print(session['block_user'])
+    User.find_from_db(session['block_user']).unblock_user_model()
+    return redirect(url_for('users.all_users_get'))

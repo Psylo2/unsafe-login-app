@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect
+from flask import Blueprint, url_for, render_template, redirect, session
 
 from models.user import UserLogic, requires_login
 
@@ -42,3 +42,20 @@ def change_password_post():
 def logout():
     UserLogic.logout()
     return redirect(url_for('users.login_get'))
+
+
+@user_blueprint.get('/all_users')
+def all_users_get():
+    return UserLogic.users_list()
+
+
+@user_blueprint.get('/block')
+def block_user():
+    UserLogic.block_user()
+    return redirect(all_users_get())
+
+
+@user_blueprint.get('/unblock')
+def unblock_user():
+    UserLogic.unblock_user()
+    return redirect(all_users_get())

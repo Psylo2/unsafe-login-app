@@ -2,21 +2,31 @@ from dataclasses import dataclass, field
 from typing import List
 
 from werkzeug.security import hmac
-from db.db import add_user, get_user, update_user
+from db.db import add_user, block_user, update_user
 from models.abc.model import Model
+from models.password import Password
 
 
 @dataclass
 class UserModel:
     _name: str
     _email: str
-    _password: str = field(repr=False)
+    _password: str = field(repr=False, default_factory=Password(_password="AAaa12@!aA"))
+    _blocked: int = field(default=0)
+
 
 
 class User(UserModel, Model):
 
     def save_to_db(self) -> None:
-        add_user(self._name, self._email, self._password)
+        if _password.confirm_password():
+            add_user(self._name, self._email, self._password)
+
+    def block_user_model(self) -> None:
+        block_user(self._name, 1)
+
+    def unblock_user_model(self) -> None:
+        block_user(self._name, 0)
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":

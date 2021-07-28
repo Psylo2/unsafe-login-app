@@ -1,19 +1,6 @@
-from flask import session, request, url_for, redirect, flash
+from flask import request, url_for, redirect, flash
 from models.password.password import Password
 
-
-# def _password_complex(ups: str):#, lows: str, digits: str):#, special: str):  # , specials: str):
-#     print(ups)
-#     re = ""
-#     if ups == "1":
-#         re += "A-Z"
-#     # if lows == "1":
-#     #     re += "a-z"
-#     # if digits == "1":
-#     #     re += "0-9"
-#     # if special == "1":
-#     #     re += "\!\@\#\$\%\^\&\*\_\+\.\,"
-#     print(re)
 
 def password_configuration():
     try:
@@ -46,17 +33,15 @@ def password_configuration():
 
         password_tries = request.form['tries']
 
-        Password._set_config(password_length,
-                             re,
-                             password_history,
-                             use_dict,
-                             password_tries)
+        Password._set_config(self=Password,
+                             length=password_length,
+                             regex=re,
+                             history=password_history,
+                             dictionary=use_dict,
+                             tries=password_tries)
 
     except Exception as e:
         print(e)
         flash('Invalid Inputs', 'danger')
     return redirect(url_for('admin.password_conf_get'))
 
-
-def users_list():
-    pass
