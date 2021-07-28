@@ -59,15 +59,14 @@ def logout():
 
 def users_list():
     _users = User.find_many_by()
-    session['block_user'] = None
     return render_template('password/user_list.html', users=_users)
 
-def block_user():
-    User.find_from_db(session['block_user']).block_user_model()
+def block_user(block):
+    user = User.find_from_db(block)
+    user.block_user_model()
 
-    return redirect(url_for('users.all_users_get'))
 
-def unblock_user():
-    print(session['block_user'])
-    User.find_from_db(session['block_user']).unblock_user_model()
-    return redirect(url_for('users.all_users_get'))
+def unblock_user(unblock):
+    user = User.find_from_db(unblock)
+    user.unblock_user_model()
+

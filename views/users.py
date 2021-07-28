@@ -49,13 +49,12 @@ def all_users_get():
     return UserLogic.users_list()
 
 
-@user_blueprint.get('/block')
-def block_user():
-    UserLogic.block_user()
-    return redirect(all_users_get())
+@user_blueprint.get('/block/<string:block>')
+def block_user(block):
+    UserLogic.block_user(block)
+    return redirect(url_for('users.all_users_get'))
 
-
-@user_blueprint.get('/unblock')
-def unblock_user():
-    UserLogic.unblock_user()
-    return redirect(all_users_get())
+@user_blueprint.get('/unblock/<string:unblock>')
+def unblock_user(unblock):
+    UserLogic.unblock_user(unblock)
+    return redirect(url_for('users.all_users_get'))

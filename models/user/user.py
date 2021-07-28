@@ -20,13 +20,13 @@ class User(UserModel, Model):
 
     def save_to_db(self) -> None:
         if _password.confirm_password():
-            add_user(self._name, self._email, self._password)
+            add_user(self._name, self._email, self._password, self._blocked)
 
     def block_user_model(self) -> None:
-        block_user(self._name, 1)
+        block_user(name_email=self._name, block_mode=1)
 
     def unblock_user_model(self) -> None:
-        block_user(self._name, 0)
+        block_user(name_email=self._name, block_mode=0)
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":

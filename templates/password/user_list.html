@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {#    {% if session['name_email'] == config.ADMIN %}#}
+    <header>
+        <h1>User's List</h1>
+    </header>
+    <section>
+        {% if users | length > 0 %}
+            <div class="list-group mb-3">
+                {% for user in users %}
+                    <div class="list-group-items"><br>
+                        <p>
+                            Username: {{ user._name }}<br>
+                            E-mail: {{ user._email }}<br>
+
+                            {% if user._blocked == 0 %}
+                                Blocked: False
+                                </p>
+                                <a class="btn"
+                                   href="{{ url_for('users.block_user', block=user._name) }}">Block User</a>
+                            {% else %}
+                                Blocked: True
+                                </p>
+                                <a class="btn"
+                                   href="{{ url_for('users.unblock_user', unblock=user._name) }}">Unblock User</a>
+                            {% endif %}
+
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </section>
+{% endblock %}

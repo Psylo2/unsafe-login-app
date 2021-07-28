@@ -11,7 +11,7 @@ CREATE_USERS_TABLE = """CREATE TABLE IF NOT EXISTS users (
     username TEXT PRIMARY KEY,
     password TEXT,
     email TEXT,
-    blocked BOOLEAN
+    blocked INTEGER
 );"""
 
 INSERT_USER = "INSERT INTO users (username, email, password, blocked) VALUES (?, ?, ?, ?);"
@@ -20,9 +20,9 @@ SELECT_ALL_USERS = "SELECT * FROM users;"
 
 SELECT_USER = "SELECT * FROM users WHERE (?) IN (username, email);"
 
-UPDATE_PASSWORD = "UPDATE users SET password = (?)  WHERE (?) IN (username, email);"
+UPDATE_PASSWORD = "UPDATE users SET password=(?)  WHERE (?) IN (username, email);"
 
-BLOCK_USER = "UPDATE users SET blocked = (?)  WHERE (?) IN (username, email);"
+BLOCK_USER = "UPDATE users SET blocked=(?) WHERE username=(?);"
 
 
 def create_table() -> None:
