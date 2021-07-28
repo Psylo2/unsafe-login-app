@@ -56,7 +56,7 @@ def change_password():
 def logout():
     session['name_email'] = None
 
-
+# TODO: Move users_list(), block_user(), unblock_user() to admin_logic.py
 def users_list():
     _users = User.find_many_by()
     session['block_user'] = None
