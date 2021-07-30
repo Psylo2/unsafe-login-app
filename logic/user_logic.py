@@ -61,7 +61,6 @@ def logout():
 # TODO: Move users_list(), block_user(), unblock_user() to admin_logic.py
 def users_list():
     _users = User.find_all_from_db()
-    print(_users)
     return render_template('password/user_list.html', users=_users)
 
 
