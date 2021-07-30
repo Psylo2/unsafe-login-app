@@ -25,8 +25,9 @@ def register():
         email = request.form['email']
         password = request.form['password']
         re_password = request.form['re_password']
+
         if RegisterUtils._valid_register(username, email, password, re_password):
-            User(username, email, password).save_to_db()
+            User(username, email, password, 0).save_to_db()
         return redirect(url_for('users.login_get'))
 
     except Exception as e:
@@ -56,10 +57,13 @@ def change_password():
 def logout():
     session['name_email'] = None
 
+
 # TODO: Move users_list(), block_user(), unblock_user() to admin_logic.py
 def users_list():
     _users = User.find_all_from_db()
+    print(_users)
     return render_template('password/user_list.html', users=_users)
+
 
 def block_user(block):
     user = User.find_from_db(block)
@@ -69,4 +73,3 @@ def block_user(block):
 def unblock_user(unblock):
     user = User.find_from_db(unblock)
     user.unblock_user_model()
-

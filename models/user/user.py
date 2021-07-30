@@ -19,18 +19,15 @@ class UserModel:
         self._email = email
         self._password = password
         self._blocked = blocked
-        
-        
-
 
 
 class User(UserModel, Model):
     DATABASE = "users"
-    
-    # TODO: How to call password and save him aswell each time
+
+    # TODO: How to call password and save him as well each time
     def save_to_db(self) -> None:
-        add_user(self._name, self._email, self._blocked)
-    
+        add_user(self._name, self._email, self._password, self._blocked)
+
     def block_user_model(self) -> None:
         block_user(self._name, 1)
 
@@ -49,10 +46,9 @@ class User(UserModel, Model):
     @classmethod
     def update_password(cls) -> None:
         update_user(cls._name, cls._password)
-    
-    #TODO: Implement on login_utils 
+
+    # TODO: Implement on login_utils
     @classmethod
     def valid_login(cls, name_email: str, password: str) -> bool:
         user = cls.find_from_db(name_email)
         return hmac.compare_digest(user._password, password)
-

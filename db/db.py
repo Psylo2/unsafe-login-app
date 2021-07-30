@@ -31,7 +31,9 @@ CREATE_PASSWORDS_TABLE = """CREATE TABLE IF NOT EXISTS passwords (
     FOREIGN KEY(username) REFERENCES users(username)
 );"""
 
-INSERT_USER = "INSERT INTO users (username, email, blocked) VALUES (?, ?, ?);"
+INSERT_USER = "INSERT INTO users (username, email, password, blocked) VALUES (?, ?, ?, ?);"
+# INSERT_USER = "INSERT INTO users (username, email,  blocked) VALUES (?, ?, ?);"
+
 
 INSERT_PASSWORD = "INSERT INTO passwords (username, password_current, password_1, password_3, password_4, password_5, password_6, password_7, password_8, password_9, password_10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
@@ -54,10 +56,15 @@ def create_tables() -> None:
         connection.execute(CREATE_PASSWORDS_TABLE)
 
 
-def add_user(username: str, email: str, password: dict) -> None:
+# def add_user(username: str, email: str, password: dict) -> None:
+#     with connection:
+#         connection.execute(INSERT_USER, (username, email))
+#         add_password(password)
+
+def add_user(username: str, email: str, password: str, blocked: int) -> None:
+    print(username, email, password, blocked)
     with connection:
-        connection.execute(INSERT_USER, (username, email))
-        add_password(password)
+        connection.execute(INSERT_USER, (username, email, password, blocked))
 
 
 def add_password(password: dict) -> None:

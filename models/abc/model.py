@@ -1,5 +1,7 @@
+import uuid
 from abc import ABCMeta
-from typing import TypeVar, Type, List, Dict
+from typing import TypeVar, Type, List, Union
+
 from db.db import (get_user, get_all_users, get_password,
                    get_all_passwords, get_headers)
 
@@ -17,7 +19,7 @@ class Model(metaclass=ABCMeta):
             database = get_user(one)
         else:
             database = get_password(one)
-        headers = get_headers(header) #"passwords" or "users"
+        headers = get_headers(header)  # "passwords" or "users"
         return cls(**cls.strip_tup(headers, database))
 
     @classmethod
@@ -26,21 +28,25 @@ class Model(metaclass=ABCMeta):
             database = get_all_users()
         else:
             database = get_all_passwords()
-        headers = get_headers(header) #"passwords" or "users"
-        return [cls(**cls.strip_tup(headers, database))]
+        headers = get_headers(header)  # "passwords" or "users"
+        return [cls(**i) for i in cls.strip_tup(headers, database)]
 
     @classmethod
-    def strip_tup(cls: Type[T], headers: List, database: List) -> Dict:
+    def strip_tup(cls: Type[T], headers: List, database: List) -> Union[list[dict], dict]:
+
         ret = {}
+        ret_dict = {}
 
         if type(database) is list:
-            for i in range(len(database)):
-                for j in range(len(database[i])):
-                    ret.update({headers[j]: database[i][j]})
+            for data in database:
+                for j in range(len(data)):
+                    ret_dict.update({headers[j]: data[j]})
+                ret.update({uuid.uuid4().int: ret_dict})
+                ret_dict = {}
+            return list(ret.values())
 
-        if type(database) is tuple:
+
+        else:
             for i in range(len(database)):
-                print(headers[i], database[i])
                 ret.update({headers[i]: database[i]})
-
-        return ret
+            return ret

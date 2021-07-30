@@ -1,27 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
- <div class="form-wrapper">
-            <form class="contactus contactus--decor contactus--facebook" name="registerForm">
-                <div class="contactus__inner contactus__inner--facebook " id="dataholder">
-                    <input class="contactus__inner-item contactus__inner-username data" type="username"
-                           placeholder="Username" name="username" autocomplete="on" id="username"
-                           data-required="username"
-                           data-invalid-message="Please provide username longer than 2 characters">
-                    <input class="contactus__inner-item contactus__inner-email data" type="email" placeholder="Email"
-                           name="email" autocomplete="on" id="email" data-required="email"
-                           data-invalid-message="Please provide valid message example@example@.com">
-                    <input class="contactus__inner-item contactus__inner-email data" type="password"
-                           placeholder="Password" name="password" autocomplete="on" id="password"
-                           data-required="password"
-                           data-invalid-message="Please provide password longer than 4 characters">
-                    <input class="contactus__inner-item contactus__inner-email data" type="password"
-                           placeholder="Confirm Password" name="confirm" autocomplete="on" id="passwordConfirm"
-                           data-required="passwordConfirm"
-                           data-invalid-message="Password and password confirmation should much!">
-                    <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Register"
-                           name="btn" id="submitForm">
-                </div>
-            </form>
-        </div>
+    <div class="form-wrapper">
+        <form class="contactus contactus--decor contactus--facebook" name="registerForm" method="POST"
+              action="{{ url_for('users.register_get') }}">
+            <div class="contactus__inner contactus__inner--facebook " id="dataholder">
+                <input class="contactus__inner-item contactus__inner-username data" type="username"
+                       placeholder="Username" name="username" autocomplete="on" id="username"
+                       data-required="username"
+                       data-invalid-message="Please provide username longer than 2 characters">
+
+                <input class="contactus__inner-item contactus__inner-email data" type="email" placeholder="Email"
+                       name="email" autocomplete="on" id="email" data-required="email"
+                       data-invalid-message="Please provide valid message example@example@.com">
+
+                <input class="contactus__inner-item contactus__inner-password data" type="password"
+                       placeholder="Password" name="password" autocomplete="on" id="password"
+                       data-required="password"
+                       data-invalid-message="Please provide password longer than 4 characters">
+
+                <input class="contactus__inner-item contactus__inner-re_password data" type="password"
+                       placeholder="Confirm Password" name="re_password" autocomplete="on" id="re_password"
+                       data-required="re_password"
+                       data-invalid-message="Password and password confirmation should much!">
+
+                <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Register"
+                       name="btn" id="submitForm">
+            </div>
+        </form>
+    </div>
 
 {% endblock %}

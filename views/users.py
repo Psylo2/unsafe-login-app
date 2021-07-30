@@ -54,6 +54,7 @@ def block_user(block):
     UserLogic.block_user(block)
     return redirect(url_for('users.all_users_get'))
 
+
 @user_blueprint.get('/unblock/<string:unblock>')
 def unblock_user(unblock):
     UserLogic.unblock_user(unblock)
