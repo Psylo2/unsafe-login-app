@@ -21,7 +21,10 @@
             <!--             data-required="passwordConfirm"-->
             <!--             data-invalid-message="Password and password confirmation should much!">-->
             <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Submit"
-                   name="btn" id="submitForm">
+                   name="btn" id="submitForm"><br>
+
+            <a href="{{ url_for('users.change_password_get') }}" class="menu-categories__link">Change password</a>
+
         </form>
     </div>
     </body>

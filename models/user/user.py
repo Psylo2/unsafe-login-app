@@ -50,5 +50,5 @@ class User(UserModel, Model):
     # TODO: Implement on login_utils
     @classmethod
     def valid_login(cls, name_email: str, password: str) -> bool:
-        user = cls.find_from_db(name_email)
+        user = cls.find_from_db(name_email,)
         return hmac.compare_digest(user._password, password)

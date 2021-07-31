@@ -44,17 +44,18 @@ def logout():
     return redirect(url_for('users.login_get'))
 
 
+# TODO: Move to views.admins
 @user_blueprint.get('/all_users')
 def all_users_get():
     return UserLogic.users_list()
 
-
+# TODO: Move to views.admins
 @user_blueprint.get('/block/<string:block>')
 def block_user(block):
     UserLogic.block_user(block)
     return redirect(url_for('users.all_users_get'))
 
-
+# TODO: Move to views.admins
 @user_blueprint.get('/unblock/<string:unblock>')
 def unblock_user(unblock):
     UserLogic.unblock_user(unblock)

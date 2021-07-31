@@ -9,12 +9,13 @@ T = TypeVar('T', bound="Model")
 
 
 class Model(metaclass=ABCMeta):
+    _test = False
 
     def save_to_db(self) -> None:
         raise NotImplementedError
 
     @classmethod
-    def find_one_by(cls: Type[T], one: str, header: str) -> T:
+    def find_one_by(cls: Type[T], one: str, header: str=None) -> T:
         if header == "users":
             database = get_user(one)
         else:
@@ -23,7 +24,7 @@ class Model(metaclass=ABCMeta):
         return cls(**cls.strip_tup(headers, database))
 
     @classmethod
-    def find_many_by(cls: Type[T], header: str) -> List[T]:
+    def find_many_by(cls: Type[T], header: str=None) -> List[T]:
         if header == "users":
             database = get_all_users()
         else:
@@ -32,8 +33,7 @@ class Model(metaclass=ABCMeta):
         return [cls(**i) for i in cls.strip_tup(headers, database)]
 
     @classmethod
-    def strip_tup(cls: Type[T], headers: List, database: List) -> Union[list[dict], dict]:
-
+    def strip_tup(cls: Type[T], headers: List, database: List) -> Union[list, dict]:
         ret = {}
         ret_dict = {}
 
@@ -44,8 +44,6 @@ class Model(metaclass=ABCMeta):
                 ret.update({uuid.uuid4().int: ret_dict})
                 ret_dict = {}
             return list(ret.values())
-
-
         else:
             for i in range(len(database)):
                 ret.update({headers[i]: database[i]})

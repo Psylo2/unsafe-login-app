@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="../static/front/css/style.css">
+    <link rel="stylesheet" href="../static/front/css/style.css">
     <title>P&K Base</title>
 </head>
 <body>
 <div class="header__bottom">
     <div class="container">
         <ul class="menu-categories">
-                        <li class="menu-categories__item">
-                <a href="{{ url_for('users.register_get') }}" class="menu-categories__link">REGISTERDUBUG </a>
-                </li>
             <li class="menu-categories__item">
                 <a href="/" class="menu-categories__link">Home</a>
             </li>
@@ -22,18 +19,21 @@
             </li>
             {% if session['name_email'] %}
                 <li class="menu-categories__item">
-                <a href="{{ url_for('users.logout') }}" class="menu-categories__link">Logout </a>
+                    <a href="{{ url_for('users.logout') }}" class="menu-categories__link">Logout </a>
+                </li>
+            {% else %}
+                <li class="menu-categories__item">
+                    <a href="{{ url_for('users.register_get') }}" class="menu-categories__link">Register</a>
                 </li>
             {% endif %}
         </ul>
     </div>
-
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}
-            <div class="alert alert-{{ category }}" role="alert">
-                {{ message }}
-            </div>
+                <div class="alert alert-{{ category }}" role="alert">
+                    {{ message }}
+                </div>
             {% endfor %}
         {% endif %}
     {% endwith %}

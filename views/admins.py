@@ -15,3 +15,5 @@ def password_conf_get():
 def password_conf_post():
     AdminLogic.password_configuration()
     return password_conf_get()
+
+
