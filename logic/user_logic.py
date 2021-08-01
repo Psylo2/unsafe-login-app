@@ -1,17 +1,26 @@
 from flask import session, request, url_for, redirect, flash, render_template
 
-from utils.user_utils import LoginUtils, RegisterUtils
+from utils.valid_utils import LoginUtils, RegisterUtils
 from models.user import User
+from models.password import Password
+
 
 
 def login():
     try:
         name_email = request.form['name_email']
         password = request.form['password']
+        print("here",Password.find_one_by("pablo"))
         if LoginUtils._valid_login(name_email, password):
-            if User.valid_login(name_email, password):
-                session['name_email'] = name_email
-                return redirect(url_for('home'))
+            user = User.find_from_db(name_email,)
+            password = Password.find_one_by(user._name)
+            print(user)
+            print(password)
+            if User.find_from_db(name_email,)\
+                    and Password.find_one_by(User.find_from_db(name_email,)._name):
+                        session['name_email'] = name_email
+                        print("here")
+                        return redirect(url_for('home'))
 
     except Exception as e:
         print(e)
@@ -58,17 +67,4 @@ def logout():
     session['name_email'] = None
 
 
-# TODO: Move users_list(), block_user(), unblock_user() to admin_logic.py
-def users_list():
-    _users = User.find_all_from_db()
-    return render_template('password/user_list.html', users=_users)
 
-
-def block_user(block):
-    user = User.find_from_db(block)
-    user.block_user_model()
-
-
-def unblock_user(unblock):
-    user = User.find_from_db(unblock)
-    user.unblock_user_model()

@@ -11,6 +11,9 @@ T = TypeVar('T', bound="Model")
 class Model(metaclass=ABCMeta):
     _test = False
 
+    # def __init__(self):
+    #     self._current_try = None
+
     def save_to_db(self) -> None:
         raise NotImplementedError
 

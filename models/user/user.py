@@ -4,20 +4,17 @@ from typing import List
 from werkzeug.security import hmac
 from db.db import add_user, block_user, update_user
 from models.abc.model import Model
-from models.password.password import Password
 
 
 @dataclass(init=False)
 class UserModel:
     _name: str
     _email: str
-    _password: str = field(repr=False)
     _blocked: int = field(default=0)
 
-    def __init__(self, username, email, password, blocked):
+    def __init__(self, username, email, blocked):
         self._name = username
         self._email = email
-        self._password = password
         self._blocked = blocked
 
 
@@ -26,7 +23,7 @@ class User(UserModel, Model):
 
     # TODO: How to call password and save him as well each time
     def save_to_db(self) -> None:
-        add_user(self._name, self._email, self._password, self._blocked)
+        add_user(self._name, self._email, self._blocked)
 
     def block_user_model(self) -> None:
         block_user(self._name, 1)

@@ -1,13 +1,13 @@
 from flask import Blueprint, url_for, render_template, redirect, session
 
-from models.user import UserLogic, requires_login
+import logic.user_logic as UserLogic
 
 user_blueprint = Blueprint('users', __name__)
 
 
 @user_blueprint.get('/login')
 def login_get():
-    return render_template('user/login.html')
+    return render_template('admin/../templates/user/login.html')
 
 
 @user_blueprint.post('/login')
@@ -18,7 +18,7 @@ def login_post():
 
 @user_blueprint.get('/register')
 def register_get():
-    return render_template('user/register.html')
+    return render_template('admin/../templates/user/register.html')
 
 
 @user_blueprint.post('/register')
@@ -29,7 +29,7 @@ def register_post():
 
 @user_blueprint.get('/change_password')
 def change_password_get():
-    return render_template('user/change_password.html')
+    return render_template('admin/../templates/user/change_password.html')
 
 
 @user_blueprint.post('/change_password')
@@ -44,19 +44,4 @@ def logout():
     return redirect(url_for('users.login_get'))
 
 
-# TODO: Move to views.admins
-@user_blueprint.get('/all_users')
-def all_users_get():
-    return UserLogic.users_list()
 
-# TODO: Move to views.admins
-@user_blueprint.get('/block/<string:block>')
-def block_user(block):
-    UserLogic.block_user(block)
-    return redirect(url_for('users.all_users_get'))
-
-# TODO: Move to views.admins
-@user_blueprint.get('/unblock/<string:unblock>')
-def unblock_user(unblock):
-    UserLogic.unblock_user(unblock)
-    return redirect(url_for('users.all_users_get'))

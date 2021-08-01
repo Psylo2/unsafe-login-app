@@ -26,7 +26,7 @@ def add_user(username: str, email: str, password: str, blocked: int) -> None:
 def add_password(password: dict) -> None:
     with connection:
         connection.execute(INSERT_PASSWORD,
-                           (password['username'], password['password_current'], password['password_1'],
+                           (password['username'], password['current_password'], password['password_1'],
                             password['password_2'], password['password_3'], password['password_4'],
                             password['password_5'], password['password_6'], password['password_7'],
                             password['password_8'], password['password_9'], password['password_10']))
@@ -71,13 +71,10 @@ def get_all_passwords() -> connection.cursor():
         return cursor.fetchall()
 
 
-def update_password(password: dict) -> None:
+def update_password(password: tuple) -> None:
     with connection:
-        connection.execute(UPDATE_PASSWORD,
-                           (password['password_current'], password['password_1'], password['password_2'],
-                            password['password_3'], password['password_4'], password['password_5'],
-                            password['password_6'], password['password_7'], password['password_8'],
-                            password['password_9'], password['password_10'], password['username']))
+        connection.execute(UPDATE_PASSWORD, [str(pas) for pas in password])
+        print([str(pas) for pas in password])
         connection.commit()
 
 

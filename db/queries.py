@@ -5,14 +5,13 @@ from typing import List
 
 CREATE_USERS_TABLE = """CREATE TABLE IF NOT EXISTS users (
     username TEXT PRIMARY KEY,
-    password TEXT,
-    email TEXT,
+    email TEXT UNIQUE,
     blocked INTEGER
 );"""
 
 CREATE_PASSWORDS_TABLE = """CREATE TABLE IF NOT EXISTS passwords (
-    username TEXT,
-    password_current TEXT,
+    username TEX UNIQUE,
+    current_password TEXT,
     password_1 TEXT,
     password_2 TEXT,
     password_3 TEXT,
@@ -26,10 +25,10 @@ CREATE_PASSWORDS_TABLE = """CREATE TABLE IF NOT EXISTS passwords (
     FOREIGN KEY(username) REFERENCES users(username)
 );"""
 
-INSERT_USER = "INSERT INTO users (username, email, password, blocked) VALUES (?, ?, ?, ?);"
-# INSERT_USER = "INSERT INTO users (username, email,  blocked) VALUES (?, ?, ?);"
+# INSERT_USER = "INSERT INTO users (username, email, password, blocked) VALUES (?, ?, ?, ?);"
+INSERT_USER = "INSERT INTO users (username, email,  blocked) VALUES (?, ?, ?);"
 
-INSERT_PASSWORD = "INSERT INTO passwords (username, password_current, password_1, password_3, password_4, password_5, password_6, password_7, password_8, password_9, password_10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+INSERT_PASSWORD = "INSERT INTO passwords (username, current_password, password_1, password_3, password_4, password_5, password_6, password_7, password_8, password_9, password_10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
 SELECT_ALL_USERS = """SELECT * FROM users;"""
 
@@ -39,7 +38,7 @@ SELECT_PASSWORD = "SELECT * FROM passwords WHERE username=(?);"
 
 SELECT_USER = "SELECT * FROM users WHERE (?) IN (username, email);"
 
-UPDATE_PASSWORD = "UPDATE passwords SET password_current = (?), password_1 = (?), password_2 = (?), password_3 = (?), password_4 = (?), password_5 = (?), password_6 = (?), password_7 = (?), password_8 = (?), password_9 = (?), password_10 = (?)  WHERE username=(?);"
+UPDATE_PASSWORD = "UPDATE passwords SET current_password = (?), password_1 = (?), password_2 = (?), password_3 = (?), password_4 = (?), password_5 = (?), password_6 = (?), password_7 = (?), password_8 = (?), password_9 = (?), password_10 = (?) WHERE username=(?);"
 
 BLOCK_USER = "UPDATE users SET blocked = (?)  WHERE (?) IN (username, email);"
 
