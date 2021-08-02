@@ -14,8 +14,10 @@ def login():
         if LoginUtils._valid_login(name_email, password):
             user = User.find_from_db(name_email)
             password = Password.find_one_by(user._name)
-            if user and password:
+            if user and password.password_match(password):
                 session['name_email'] = name_email
+                flash(f'Welcome {user,_name}', 'danger')
+
                 return redirect(url_for('home'))
 
     except Exception as e:
@@ -35,7 +37,9 @@ def register():
                                          password, re_password):
             user = User(username, email,0)
             user.save_to_db()
-            Password(username=username).save_to_db()
+            Password(username=user._name).save_to_db()
+            flash('Registration Succsess!', 'danger')
+    
             
         return redirect(url_for('users.login_get'))
 
@@ -72,6 +76,7 @@ def change_password():
 
 
 def logout():
+    flash('Farwell', 'danger')
     session['name_email'] = None
 
 
