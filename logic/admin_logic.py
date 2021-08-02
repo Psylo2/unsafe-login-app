@@ -51,19 +51,8 @@ def password_configuration():
                              history=password_history,
                              dictionary=use_dict,
                              tries=password_tries)
-
-#TODO: ALL THIS TO USER CHANGE PASSWORD!!
-#################################################################
-        username = "pablo"
-        password = "aaAA1212@!124"
-        user = User.find_from_db(username)
-        if user:
-            pas = Password(username=username)
-            if pas.confirm_password(user._name, password):
-                new_order = pas.order_new_password(username=user._name, password=password)
-                pas.update_to_db(new_order)
-##################################################################
-
+        
+        flash('Password Configuration Changed!', 'danger')
 
     except Exception as e:
         print(e)
