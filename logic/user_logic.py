@@ -35,7 +35,8 @@ def register():
         password = request.form['password']
         re_password = request.form['re_password']
 
-        if RegisterUtils._valid_register(username, email, password, re_password):
+        if RegisterUtils._valid_register(username, email,
+                                         password, re_password):
             User(username, email, password, 0).save_to_db()
         return redirect(url_for('users.login_get'))
 
@@ -51,10 +52,18 @@ def change_password():
         email = request.form['email']
         password = request.form['password']
         re_password = request.form['re_password']
-        if RegisterUtils._valid_register(username, email, password, re_password):
+        
+        if RegisterUtils._valid_register(username, email,
+                                         password, re_password):
             user = User.find_from_db(username)
-            user._password = password
-            user.update_password()
+            if user:
+                new_passw = Password(username=username)
+                if new_passw.confirm_password(user._name, password):
+                    new_order = new_passw.order_new_password(
+                        username=user._name,
+                        password=password)
+                    new_passw.update_to_db(new_order)
+                    flash('Password Changed!', 'danger')
         return redirect(url_for('home'))
 
     except Exception as e:
