@@ -37,10 +37,14 @@ def register():
                                          password, re_password):
             user = User(username, email,0)
             user.save_to_db()
-            Password(username=user._name).save_to_db()
+            pas = Password(username=user._name)
+            if pas.confirm_password(password):
+                pas.save_to_db()
+            else:
+                flash('Password dont meet complexity!', 'danger')
+                return redirect(url_for('users.login_get'))
+                
             flash('Registration Succsess!', 'danger')
-    
-            
         return redirect(url_for('users.login_get'))
 
     except Exception as e:
