@@ -10,17 +10,13 @@ def login():
     try:
         name_email = request.form['name_email']
         password = request.form['password']
-        print("here",Password.find_one_by("pablo"))
+        
         if LoginUtils._valid_login(name_email, password):
-            user = User.find_from_db(name_email,)
+            user = User.find_from_db(name_email)
             password = Password.find_one_by(user._name)
-            print(user)
-            print(password)
-            if User.find_from_db(name_email,)\
-                    and Password.find_one_by(User.find_from_db(name_email,)._name):
-                        session['name_email'] = name_email
-                        print("here")
-                        return redirect(url_for('home'))
+            if user and password:
+                session['name_email'] = name_email
+                return redirect(url_for('home'))
 
     except Exception as e:
         print(e)
@@ -37,7 +33,10 @@ def register():
 
         if RegisterUtils._valid_register(username, email,
                                          password, re_password):
-            User(username, email, password, 0).save_to_db()
+            user = User(username, email,0)
+            user.save_to_db()
+            Password(username=username).save_to_db()
+            
         return redirect(url_for('users.login_get'))
 
     except Exception as e:
