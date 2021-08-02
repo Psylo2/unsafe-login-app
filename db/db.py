@@ -13,23 +13,14 @@ def create_tables() -> None:
         connection.execute(CREATE_PASSWORDS_TABLE)
 
 
-# def add_user(username: str, email: str, password: dict) -> None:
-#     with connection:
-#         connection.execute(INSERT_USER, (username, email))
-#         add_password(password)
-
 def add_user(username: str, email: str, password: str, blocked: int) -> None:
     with connection:
-        connection.execute(INSERT_USER, (username, email, password, blocked))
+        connection.execute(INSERT_USER, (username, email, blocked))
 
 
-def add_password(password: dict) -> None:
+def add_password(password: tuple) -> None:
     with connection:
-        connection.execute(INSERT_PASSWORD,
-                           (password['username'], password['current_password'], password['password_1'],
-                            password['password_2'], password['password_3'], password['password_4'],
-                            password['password_5'], password['password_6'], password['password_7'],
-                            password['password_8'], password['password_9'], password['password_10']))
+        connection.execute(INSERT_PASSWORD, [str(pas) for pas in password])
 
 
 def block_user(name_email: str, block_mode: int) -> None:
@@ -51,12 +42,6 @@ def get_all_users() -> connection.cursor():
         return cursor.fetchall()
 
 
-def update_user(name_email: str, password: str) -> None:
-    with connection:
-        connection.execute(UPDATE_PASSWORD, (name_email, password))
-        connection.commit()
-
-
 def get_password(username: str) -> connection.cursor():
     with connection:
         cursor = connection.cursor()
@@ -74,7 +59,6 @@ def get_all_passwords() -> connection.cursor():
 def update_password(password: tuple) -> None:
     with connection:
         connection.execute(UPDATE_PASSWORD, [str(pas) for pas in password])
-        print([str(pas) for pas in password])
         connection.commit()
 
 
