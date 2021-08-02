@@ -71,8 +71,8 @@ class Password(PasswordConfig, Model):
             return True if new_matcher.match(new_password) else False
 
     @classmethod
-    def __password_history(cls, username: str, new_password: str) -> bool:
-        return True if new_password not in get_password(username) else False
+    def __password_history(cls, new_password: str) -> bool:
+        return True if new_password not in get_password(cls._username) else False
 
     @classmethod
     def __check_try(cls) -> bool:
@@ -102,7 +102,7 @@ class Password(PasswordConfig, Model):
         cls._current_try = int(tries) if len(tries) > 0 else cls._current_try
 
     @classmethod
-    def confirm_password(cls, username: str, new_password: str) -> bool:
+    def confirm_password(cls, new_password: str) -> bool:
         ret = ""
         flag = False
         if cls._length_of_password > len(new_password):
@@ -118,7 +118,7 @@ class Password(PasswordConfig, Model):
             flag = True
             ret += "[*] Password dont met dict mode.\n"
         print("Dict ----> ", ret if ret != "" else "OK")
-        if not cls.__password_history(username, new_password):
+        if not cls.__password_history(new_password):
             flag = True
             ret += "[*] Password dont met dictionary.\n"
         print("History ----> ", ret if ret != "" else "OK")
