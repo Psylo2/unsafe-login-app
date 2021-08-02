@@ -136,20 +136,14 @@ class Password(PasswordConfig, Model):
 
     @classmethod
     def order_new_password(cls, username: str, password: str) -> tuple:
-        p = get_password(username)
-        cls._password_10 = p[10]
-        cls._password_9 = p[9]
-        cls._password_8 = p[8]
-        cls._password_7 = p[7]
-        cls._password_6 = p[6]
-        cls._password_5 = p[5]
-        cls._password_4 = p[4]
-        cls._password_3 = p[3]
-        cls._password_2 = p[2]
-        cls._password_1 = p[1]
+        user_passwords = get_password(username)
+        
+        cls._password_10, cls._password_9, cls._password_8,\
+        cls._password_7, cls._password_6,cls._password_5,\
+        cls._password_4, cls._password_3, cls._password_2,\
+        cls._password_1 = [str(pas) for pas in user_passwords]
         cls._current_password = password
         cls._username = username
-
 
         return (cls._current_password,
                 cls._password_1, cls._password_2, cls._password_3,
@@ -158,7 +152,7 @@ class Password(PasswordConfig, Model):
                 cls._password_10, cls._username)
 
     def save_to_db(self) -> None:
-        add_password(tuple(
+        add_password((
                 self._username, self._current_password,
                 self._password_1, self._password_2, self._password_3,
                 self._password_4, self._password_5, self._password_6,
