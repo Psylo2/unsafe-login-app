@@ -36,4 +36,4 @@ class RegisterUtils(UserUtils):
                        UserUtils._email_is_valid(email) and \
                        UserUtils._password_is_valid(password) and \
                        UserUtils._password_is_valid(re_password) and \
-                       hmac.compare_digest(password, re_password) else False
+                       password == re_password else False

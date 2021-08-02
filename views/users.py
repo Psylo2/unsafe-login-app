@@ -7,7 +7,7 @@ user_blueprint = Blueprint('users', __name__)
 
 @user_blueprint.get('/login')
 def login_get():
-    return render_template('admin/../templates/user/login.html')
+    return render_template('user/login.html')
 
 
 @user_blueprint.post('/login')
@@ -18,7 +18,7 @@ def login_post():
 
 @user_blueprint.get('/register')
 def register_get():
-    return render_template('admin/../templates/user/register.html')
+    return render_template('user/register.html')
 
 
 @user_blueprint.post('/register')
@@ -29,7 +29,7 @@ def register_post():
 
 @user_blueprint.get('/change_password')
 def change_password_get():
-    return render_template('admin/../templates/user/change_password.html')
+    return render_template('user/change_password.html')
 
 
 @user_blueprint.post('/change_password')

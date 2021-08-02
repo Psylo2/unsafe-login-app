@@ -1,3 +1,4 @@
+from werkzeug.security import hmac
 from dataclasses import dataclass, field
 import re
 from typing import Dict
@@ -33,20 +34,22 @@ class Password(PasswordConfig, Model):
     _current_try: int = 3
     DATABASE = "passwords"
 
-    def __init__(self, username):
-        user = get_password(username)
-        self._username = user[0]#username if username in get_password(username) else None
-        self._current_password = user[1]
-        self._password_1 = user[2] if user[2] else ""
-        self._password_2 = user[3] if user[3] else ""
-        self._password_3 = user[4] if user[4] else ""
-        self._password_4 = user[5] if user[5] else ""
-        self._password_5 = user[6] if user[6] else ""
-        self._password_6 = user[7] if user[7] else ""
-        self._password_7 = user[8] if user[8] else ""
-        self._password_8 = user[9] if user[9] else ""
-        self._password_9 = user[10] if user[10] else ""
-        self._password_10 = user[11] if user[11] else ""
+    def __init__(self, username, current_password: str = "", password_1: str = "", password_2: str = "",
+                 password_3: str = "", password_4: str = "", password_5: str = "", password_6: str = "",
+                 password_7: str = "",
+                 password_8: str = "", password_9: str = "", password_10: str = ""):
+        self._username = username
+        self._current_password = current_password
+        self._password_1 = password_1
+        self._password_2 = password_2
+        self._password_3 = password_3
+        self._password_4 = password_4
+        self._password_5 = password_5
+        self._password_6 = password_6
+        self._password_7 = password_7
+        self._password_8 = password_8
+        self._password_9 = password_9
+        self._password_10 = password_10
 
     @classmethod
     def __check_complex_and_len(cls, new_password: str) -> bool:
@@ -118,11 +121,13 @@ class Password(PasswordConfig, Model):
             flag = True
             ret += "[*] Password dont met dict mode.\n"
         print("Dict ----> ", ret if ret != "" else "OK")
-        if not cls.__password_history(new_password):
-            flag = True
-            ret += "[*] Password dont met dictionary.\n"
-        print("History ----> ", ret if ret != "" else "OK")
-
+        try:
+            if not cls.__password_history(new_password):
+                flag = True
+                ret += "[*] Password dont met dictionary.\n"
+            print("History ----> ", ret if ret != "" else "OK")
+        except:
+            pass
         if flag:
             if cls.__check_try():
                 print(cls._current_try)
@@ -132,17 +137,21 @@ class Password(PasswordConfig, Model):
             return False
 
         cls._current_try = cls._number_of_try
-        cls._current_password = new_password
         return True
 
     @classmethod
     def order_new_password(cls, username: str, password: str) -> tuple:
-        user_passwords = get_password(username)
-        
-        cls._password_10, cls._password_9, cls._password_8,\
-        cls._password_7, cls._password_6,cls._password_5,\
-        cls._password_4, cls._password_3, cls._password_2,\
-        cls._password_1 = [str(pas) for pas in user_passwords]
+        p = get_password(username)
+        cls._password_10 = p[10]
+        cls._password_9 = p[9]
+        cls._password_8 = p[8]
+        cls._password_7 = p[7]
+        cls._password_6 = p[6]
+        cls._password_5 = p[5]
+        cls._password_4 = p[4]
+        cls._password_3 = p[3]
+        cls._password_2 = p[2]
+        cls._password_1 = p[1]
         cls._current_password = password
         cls._username = username
 
@@ -153,12 +162,17 @@ class Password(PasswordConfig, Model):
                 cls._password_10, cls._username)
 
     def save_to_db(self) -> None:
+        print((self._username, self._current_password,
+               self._password_1, self._password_2, self._password_3,
+               self._password_4, self._password_5, self._password_6,
+               self._password_7, self._password_8, self._password_9,
+               self._password_10))
         add_password((
-                self._username, self._current_password,
-                self._password_1, self._password_2, self._password_3,
-                self._password_4, self._password_5, self._password_6,
-                self._password_7, self._password_8, self._password_9,
-                self._password_10))
+            self._username, self._current_password,
+            self._password_1, self._password_2, self._password_3,
+            self._password_4, self._password_5, self._password_6,
+            self._password_7, self._password_8, self._password_9,
+            self._password_10))
 
     def update_to_db(self, password: tuple) -> None:
         update_password(password)
@@ -166,7 +180,3 @@ class Password(PasswordConfig, Model):
     @classmethod
     def find_from_db(cls, name: str) -> "Password":
         return cls.find_one_by(name, cls.DATABASE)
-
-    @classmethod
-    def password_match(cls, password: str) -> bool:
-       return hmac.compare_digest(cls._current_password, password)

@@ -25,10 +25,9 @@ CREATE_PASSWORDS_TABLE = """CREATE TABLE IF NOT EXISTS passwords (
     FOREIGN KEY(username) REFERENCES users(username)
 );"""
 
-# INSERT_USER = "INSERT INTO users (username, email, password, blocked) VALUES (?, ?, ?, ?);"
 INSERT_USER = "INSERT INTO users (username, email,  blocked) VALUES (?, ?, ?);"
 
-INSERT_PASSWORD = "INSERT INTO passwords (username, current_password, password_1, password_3, password_4, password_5, password_6, password_7, password_8, password_9, password_10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+INSERT_PASSWORD = "INSERT INTO passwords (username, current_password, password_1, password_2, password_3, password_4, password_5, password_6, password_7, password_8, password_9, password_10) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
 SELECT_ALL_USERS = """SELECT * FROM users;"""
 

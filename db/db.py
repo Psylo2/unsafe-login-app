@@ -13,7 +13,7 @@ def create_tables() -> None:
         connection.execute(CREATE_PASSWORDS_TABLE)
 
 
-def add_user(username: str, email: str, password: str, blocked: int) -> None:
+def add_user(username: str, email: str, blocked: int) -> None:
     with connection:
         connection.execute(INSERT_USER, (username, email, blocked))
 

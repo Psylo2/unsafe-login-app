@@ -28,10 +28,10 @@ def all_users_get():
 @admin_blueprint.get('/block/<string:block>')
 def block_user(block):
     AdminLogic.block_user(block)
-    return redirect(url_for('users.all_users_get'))
+    return redirect(url_for('admin.all_users_get'))
 
 
 @admin_blueprint.get('/unblock/<string:unblock>')
 def unblock_user(unblock):
     AdminLogic.unblock_user(unblock)
-    return redirect(url_for('users.all_users_get'))
+    return redirect(url_for('admin.all_users_get'))

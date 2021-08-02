@@ -9,16 +9,12 @@ T = TypeVar('T', bound="Model")
 
 
 class Model(metaclass=ABCMeta):
-    _test = False
-
-    # def __init__(self):
-    #     self._current_try = None
 
     def save_to_db(self) -> None:
         raise NotImplementedError
 
     @classmethod
-    def find_one_by(cls: Type[T], one: str, header: str=None) -> T:
+    def find_one_by(cls: Type[T], one: str, header: str = None) -> T:
         if header == "users":
             database = get_user(one)
         else:
@@ -27,7 +23,7 @@ class Model(metaclass=ABCMeta):
         return cls(**cls.strip_tup(headers, database))
 
     @classmethod
-    def find_many_by(cls: Type[T], header: str=None) -> List[T]:
+    def find_many_by(cls: Type[T], header: str = None) -> List[T]:
         if header == "users":
             database = get_all_users()
         else:

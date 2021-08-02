@@ -13,10 +13,11 @@ def login():
         
         if LoginUtils._valid_login(name_email, password):
             user = User.find_from_db(name_email)
-            password = Password.find_one_by(user._name)
-            if user and password.password_match(password):
+            user_pas = Password.find_from_db(name=user._name)
+            if user and user_pas._current_password == password:
+                print("there")
                 session['name_email'] = name_email
-                flash(f'Welcome {user,_name}', 'danger')
+                flash(f'Welcome {user._name}', 'danger')
 
                 return redirect(url_for('home'))
 
@@ -35,10 +36,13 @@ def register():
 
         if RegisterUtils._valid_register(username, email,
                                          password, re_password):
-            user = User(username, email,0)
+            user = User(username, email, 0)
             user.save_to_db()
+            print(user)
             pas = Password(username=user._name)
+            print(pas._username)
             if pas.confirm_password(password):
+                pas._current_password = password
                 pas.save_to_db()
             else:
                 flash('Password dont meet complexity!', 'danger')
@@ -65,10 +69,13 @@ def change_password():
             user = User.find_from_db(username)
             if user:
                 new_passw = Password(username=username)
-                if new_passw.confirm_password(user._name, password):
+                print(new_passw._current_password)
+                if new_passw.confirm_password(password):
                     new_order = new_passw.order_new_password(
                         username=user._name,
                         password=password)
+                    print(new_order)
+
                     new_passw.update_to_db(new_order)
                     flash('Password Changed!', 'danger')
         return redirect(url_for('home'))

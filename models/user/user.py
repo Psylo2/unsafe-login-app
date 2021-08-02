@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 
-from werkzeug.security import hmac
-from db.db import add_user, block_user, update_user
+from db.db import add_user, block_user
 from models.abc.model import Model
 
 
