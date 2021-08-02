@@ -39,13 +39,8 @@ class User(UserModel, Model):
     def find_all_from_db(cls) -> List["User"]:
         return cls.find_many_by(cls.DATABASE)
 
-    # TODO: Implement on password_ model & password_logic
-    @classmethod
-    def update_password(cls) -> None:
-        update_user(cls._name, cls._password)
-
     # TODO: Implement on login_utils
-    @classmethod
-    def valid_login(cls, name_email: str, password: str) -> bool:
-        user = cls.find_from_db(name_email,)
-        return hmac.compare_digest(user._password, password)
+    #@classmethod
+    #def valid_login(cls, name_email: str, password: str) -> bool:
+     #   user = cls.find_from_db(name_email,)
+      #  return hmac.compare_digest(user._password, password)
