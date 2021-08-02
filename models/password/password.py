@@ -158,12 +158,12 @@ class Password(PasswordConfig, Model):
                 cls._password_10, cls._username)
 
     def save_to_db(self) -> None:
-        add_password(
-            {"username": self._username, "current_password": self._current_password,
-             "password_1": self._password_1, "password_2": self._password_2, "password_3": self._password_3,
-             "password_4": self._password_4, "password_5": self._password_5, "password_6": self._password_6,
-             "password_7": self._password_7, "password_8": self._password_8, "password_9": self._password_9,
-             "password_10": self._password_10})
+        add_password(tuple(
+                self._username, self._current_password,
+                self._password_1, self._password_2, self._password_3,
+                self._password_4, self._password_5, self._password_6,
+                self._password_7, self._password_8, self._password_9,
+                self._password_10))
 
     def update_to_db(self, password: tuple) -> None:
         update_password(password)
