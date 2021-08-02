@@ -171,3 +171,7 @@ class Password(PasswordConfig, Model):
     @classmethod
     def find_from_db(cls, name: str) -> "Password":
         return cls.find_one_by(name, cls.DATABASE)
+
+    @classmethod
+    def password_match(cls, password: str) -> bool:
+       return hmac.compare_digest(cls._current_password, password)
