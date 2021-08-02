@@ -132,6 +132,7 @@ class Password(PasswordConfig, Model):
             return False
 
         cls._current_try = cls._number_of_try
+        cls._current_password = new_password
         return True
 
     @classmethod
