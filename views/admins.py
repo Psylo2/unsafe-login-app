@@ -1,22 +1,23 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, session
 import logic.admin_logic as AdminLogic
+from models.user.decorator import requires_admin
 
 admin_blueprint = Blueprint('admin', __name__)
 
-
+@requires_admin
 @admin_blueprint.get('/password_config')
 def password_conf_get():
     return render_template('admin/password_config.html')
 
-
+@requires_admin
 @admin_blueprint.post('/password_config')
 def password_conf_post():
     AdminLogic.password_configuration()
     return password_conf_get()
 
-
 @admin_blueprint.get('/menu')
 def menu_get():
+
     return render_template('admin/menu.html')
 
 

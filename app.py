@@ -4,7 +4,8 @@ from views.admins import admin_blueprint
 
 app = Flask(__name__)
 
-app.secret_key = "pablo"
+app.secret_key = "pablol"
+app.config.update(ADMIN="pablo")
 
 @app.get('/')
 def home():
@@ -18,4 +19,4 @@ app.register_blueprint(admin_blueprint,
                        url_prefix="/admin")
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000)

@@ -15,7 +15,7 @@
     <div class="container">
         <ul class="menu-categories">
             <li class="menu-categories__item">
-                <a href="/" class="menu-categories__link">Home</a>
+                <a href="{{ url_for('home') }}" class="menu-categories__link">Home</a>
             </li>
             <li class="menu-categories__item">
                 <a href="{{ url_for('users.login_get') }}" class="menu-categories__link">Login</a>
@@ -27,6 +27,11 @@
             {% else %}
                 <li class="menu-categories__item">
                     <a href="{{ url_for('users.register_get') }}" class="menu-categories__link">Register</a>
+                </li>
+            {% endif %}
+            {% if session['name_email'] == config.ADMIN %}
+                <li class="menu-categories__item">
+                    <a href="{{ url_for('admin.menu_get') }}" class="menu-categories__link">Admin's Menu </a>
                 </li>
             {% endif %}
         </ul>
@@ -46,6 +51,8 @@
 
         {% endblock %}
     </div>
+
+    {% include "footer.html" %}
 </div>
 </body>
 </html>
