@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
+from flask import current_app
+
 
 from db.db import add_user, block_user
 from models.abc.model import Model
@@ -25,10 +27,12 @@ class User(UserModel, Model):
         add_user(self._name, self._email, self._blocked)
 
     def block_user_model(self) -> None:
-        block_user(self._name, 1)
+        if self._name != current_app.config["ADMIN"]:
+            block_user(self._name, 1)
 
     def unblock_user_model(self) -> None:
-        block_user(self._name, 0)
+        if self._name != current_app.config["ADMIN"]:
+            block_user(self._name, 0)
 
     @classmethod
     def find_from_db(cls, name: str) -> "User":

@@ -1,16 +1,17 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+import json
+
 from views.users import user_blueprint
 from views.admins import admin_blueprint
 
 app = Flask(__name__)
 
-app.secret_key = "pablol"
-app.config.update(ADMIN="pablo")
+app.secret_key = "Secret_Key"
+app.config.update(ADMIN="Admin")
 
 @app.get('/')
 def home():
     return render_template('home.html')
-
 
 app.register_blueprint(user_blueprint,
                        url_prefix="/users")

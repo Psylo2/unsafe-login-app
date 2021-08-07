@@ -130,7 +130,6 @@ class Password(PasswordConfig, Model):
             pass
         if flag:
             if cls.__check_try():
-                print(cls._current_try)
                 flag = True
                 # TODO: set_panelty = block login for 5 minutes
             cls._current_try -= 1
@@ -162,11 +161,6 @@ class Password(PasswordConfig, Model):
                 cls._password_10, cls._username)
 
     def save_to_db(self) -> None:
-        print((self._username, self._current_password,
-               self._password_1, self._password_2, self._password_3,
-               self._password_4, self._password_5, self._password_6,
-               self._password_7, self._password_8, self._password_9,
-               self._password_10))
         add_password((
             self._username, self._current_password,
             self._password_1, self._password_2, self._password_3,

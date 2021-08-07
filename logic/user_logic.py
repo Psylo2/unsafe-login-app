@@ -4,12 +4,11 @@ from models.user import User
 from models.password import Password
 
 
-
 def login():
     try:
         name_email = request.form['name_email']
         password = request.form['password']
-        
+
         if LoginUtils._valid_login(name_email, password):
             user = User.find_from_db(name_email)
             user_pas = Password.find_from_db(name=user._name)
@@ -43,7 +42,7 @@ def register():
             else:
                 flash('Password dont meet complexity!', 'danger')
                 return redirect(url_for('users.login_get'))
-                
+
             flash('Registration Succsess!', 'danger')
         return redirect(url_for('users.login_get'))
 
@@ -59,7 +58,7 @@ def change_password():
         email = request.form['email']
         password = request.form['password']
         re_password = request.form['re_password']
-        
+
         if RegisterUtils._valid_register(username, email,
                                          password, re_password):
             user = User.find_from_db(username)
@@ -83,6 +82,3 @@ def change_password():
 def logout():
     flash('Farwell', 'danger')
     session['name_email'] = None
-
-
-
