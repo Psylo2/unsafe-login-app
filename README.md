@@ -45,9 +45,9 @@ User Register by given _Name_, _E-mail_, _Password_ and _re-Password_
 
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/register`
-![Register](https://user-images.githubusercontent.com/71320956/128612974-48a73d9a-335d-43ee-85d8-12c54adee72f.PNG) \
+![Register](https://user-images.githubusercontent.com/71320956/128612974-48a73d9a-335d-43ee-85d8-12c54adee72f.PNG)
 
-__CSRF attack on endpoint:__\
+__CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'username=Hacker' -F 'email=yougot@HACKED.com' 
 -F 'password=AAaa1212@!12' -F 're_password=AAaa1212@!12' 
@@ -65,8 +65,8 @@ User Login by given _Name\Email_ and _Password_
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/login`
 
-![Login](https://user-images.githubusercontent.com/71320956/128613001-3d4da68d-239e-4a2c-9cb8-8ac8b78ef9a1.PNG) \
-__CSRF attack on endpoint:__\
+![Login](https://user-images.githubusercontent.com/71320956/128613001-3d4da68d-239e-4a2c-9cb8-8ac8b78ef9a1.PNG)
+__CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'name_email=Hacker' -F'password=AAaa1212@!12' 
 http://127.0.0.1:5000/users/login
@@ -81,8 +81,8 @@ User Change Password by given _Username_, _E-mail_, _New Password_ and _re-Passw
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/change_password`
 
-![ChangePassword](https://user-images.githubusercontent.com/71320956/128613009-17531174-2d74-4d45-a03c-2272917365bc.PNG) \
-__CSRF attack on endpoint:__\
+![ChangePassword](https://user-images.githubusercontent.com/71320956/128613009-17531174-2d74-4d45-a03c-2272917365bc.PNG)
+__CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'username=Hacker' -F 'email=yougot@HACKED.com' 
 -F 'password=BBbb1212@!12' -F 're_password=BBbb1212@!12' 
@@ -130,9 +130,9 @@ Change password configuration:
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/admin/password_config`
 
-![PasswordConfiguration](https://user-images.githubusercontent.com/71320956/128613057-39b79463-7f29-4bdc-bc55-f6d82e6c8a24.PNG) \
+![PasswordConfiguration](https://user-images.githubusercontent.com/71320956/128613057-39b79463-7f29-4bdc-bc55-f6d82e6c8a24.PNG)
 
-__CSRF attack on endpoint:__\
+__CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'upper=0' -F 'lower=0' -F 'digits=0' 
 -F 'spec=0' -F 'use_dict=0' -F 'length=0' -F 'history=10' 
