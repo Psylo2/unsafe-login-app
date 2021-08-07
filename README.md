@@ -34,6 +34,7 @@ Deployed over Docker, inorder to contain a safety lab environment
 ## Home
 
 endpoint: `/`
+![alt text] (https://github.com/Psylo2/safe-user/blob/master/README/Photos/Home.PNG)
 <img src="\README\Photos\Home.PNG"/>
 
 ## User
