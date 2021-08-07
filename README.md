@@ -16,8 +16,6 @@ Deployed over Docker, inorder to contain a safety lab environment
 
 **Home**
 
-* Point for demonstrate a CSRF attacks
-
 **User**
 
 * Registration
