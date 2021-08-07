@@ -34,7 +34,7 @@ Deployed over Docker, inorder to contain a safety lab environment
 ## Home
 
 endpoint: `/`
-<img src="C:\Users\psylo\PycharmProjects\flaskProject3\README\Photos\Home.PNG"/>
+<img src="..\README\Photos\Home.PNG"/>
 
 ## User
 
