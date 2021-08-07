@@ -89,7 +89,7 @@ $ curl -X POST -F 'username=Hacker' -F 'email=yougot@HACKED.com'
 http://127.0.0.1:5000/users/change_password
 ````
 __Result of attack:__\
-![HackerChangePassword](https://user-images.githubusercontent.com/71320956/128613015-03a99a41-9c0f-45a7-9a0f-826468d10328.PNG) \
+![HackerChangePassword](https://user-images.githubusercontent.com/71320956/128613015-03a99a41-9c0f-45a7-9a0f-826468d10328.PNG)
 
 
 ### Logout
