@@ -182,6 +182,12 @@ body {
 
 .header__bottom {
   margin-bottom: 80px;
+    display: flex;
+  flex-direction: column;
+  height: 100%;
+display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .form-wrapper {
@@ -302,10 +308,15 @@ align-items: center;
     color: #000;
     box-shadow: 3px 3px 20px rgba(50, 50, 50, 0.25);
   }
+html{
 
+    height: 100vh;
+
+}
 /*# sourceMappingURL=style.css.map */
 .body {
   background-image: url(../res/img/flag.svg);
+  height: 100vh;
 }
 .body .carousel {
   padding-bottom: 40%;
