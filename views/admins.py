@@ -19,7 +19,6 @@ def password_conf_post():
 @admin_blueprint.get('/menu')
 @requires_admin
 def menu_get():
-
     return render_template('admin/menu.html')
 
 

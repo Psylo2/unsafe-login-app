@@ -4,27 +4,15 @@
     <div class="form-wrapper">
         <form class="contactus contactus--decor contactus--facebook" name="loginForm" method="POST"
               action="{{ url_for('users.login_get') }}">
-            <!--    <div class="contactus__inner contactus__inner&#45;&#45;facebook " id="dataholder">-->
             <input class="contactus__inner-item contactus__inner-username data" type="text"
                    placeholder="Username/Email" name="name_email" autocomplete="on" id="name_email">
             <input class="contactus__inner-item contactus__inner-email data" type="text"
-                   placeholder="Password" name="password" autocomplete="on" id="password">
-            <!--      <input class="contactus__inner-item contactus__inner-email data" type="email" placeholder="Email"-->
-            <!--             name="email" autocomplete="on" id="email" data-required="email"-->
-            <!--             data-invalid-message="Please provide valid message example@example@.com">-->
-            <!--      <input class="contactus__inner-item contactus__inner-email data" type="password"-->
-            <!--             placeholder="Password" name="password" autocomplete="on" id="password"-->
-            <!--             data-required="password"-->
-            <!--             data-invalid-message="Please provide password longer than 4 characters">-->
-            <!--      <input class="contactus__inner-item contactus__inner-email data" type="password"-->
-            <!--             placeholder="Confirm Password" name="confirm" autocomplete="on" id="passwordConfirm"-->
-            <!--             data-required="passwordConfirm"-->
-            <!--             data-invalid-message="Password and password confirmation should much!">-->
+                   placeholder="Password" name="password" autocomplete="on" id="password">>
             <input class="contactus__inner-item contactus__inner-submit" type="submit" value="Submit"
                    name="btn" id="submitForm">
-            <button class="contactus__inner-item button"  value="Submit"
-                    name="btn" id="submitForm"> <a href="{{ url_for('users.change_password_get') }}" class="menu-categories__link">Change password</a></button>
-
+            <button class="contactus__inner-item button" value="Submit"
+                    name="btn" id="submitForm"><a href="{{ url_for('users.change_password_get') }}"
+                                                  class="menu-categories__link">Change password</a></button>
 
 
         </form>

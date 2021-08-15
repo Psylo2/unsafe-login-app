@@ -13,15 +13,16 @@ def login():
             user = User.find_from_db(name_email)
             user_pas = Password.find_from_db(name=user._name)
             if user and user_pas._current_password == password:
-                session.update(name_email=user._name)
+                session.clear()
+                session['name_email'] = user._name
                 flash(f'Welcome {user._name}', 'danger')
 
-                return redirect(url_for('home'))
+                # return redirect(url_for('home'))
 
     except Exception as e:
         print(e)
         flash('Invalid Inputs', 'danger')
-        return redirect(url_for('users.login_get'))
+    # return redirect(url_for('users.login_get'))
 
 
 def register():
