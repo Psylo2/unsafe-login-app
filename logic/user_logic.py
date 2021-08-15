@@ -17,12 +17,12 @@ def login():
                 session['name_email'] = user._name
                 flash(f'Welcome {user._name}', 'danger')
 
-                # return redirect(url_for('home'))
+                return redirect(url_for('home'))
 
     except Exception as e:
         print(e)
         flash('Invalid Inputs', 'danger')
-    # return redirect(url_for('users.login_get'))
+    return redirect(url_for('users.login_get'))
 
 
 def register():
