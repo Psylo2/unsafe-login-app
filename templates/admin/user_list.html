@@ -20,17 +20,14 @@
                                 <p>
                                     Blocked: False
                                 </p>
-                                    <button class="button button--block">
-                                <a class="btn"
+                                <a class="button button--block"
                                    href="{{ url_for('admin.block_user', block=user._name) }}">Block User</a>
-                                 </button>
                             {% else %}
                                 <p>
                                     Blocked: True
                                 </p>
-                                <button class="button button--unblock">
-                                <a class="btn"  href="{{ url_for('admin.unblock_user', unblock=user._name) }}">Unblock User</a>
-                                </button>
+                                <a class="button button--unblock"
+                                   href="{{ url_for('admin.unblock_user', unblock=user._name) }}">Unblock User</a>
                             {% endif %}
                         </div>
                     </div>
