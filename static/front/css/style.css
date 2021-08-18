@@ -131,7 +131,7 @@ body {
     display: flex;
   flex-direction: column;
   height: 100%;
-display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -202,6 +202,9 @@ align-items: center;
   border-width: 0;
   border-radius: 20px;
 }
+.contactus__inner-item:hover{
+color:orange;
+}
 .contactus__inner-submit {
   margin-top: 45px;
   background: #f69a73;
@@ -230,10 +233,13 @@ align-items: center;
   width: 100%;
 }
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 10px;
-  font-weight: 500;
-  font-style: normal;
+  font-size: 15px;
+  font-weight: 600;
+  font-style: bold;
   letter-spacing: 0.12em;
   line-height: 17px;
   text-transform: uppercase;
@@ -693,5 +699,22 @@ color: #fff;
 .button--unblock{
     width: 100%;
   background: limegreen;
+}
+.adminContent{
+    flex-grow: 4
+}
+.list-group-item-heading{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content:space-between;
+}
+.list-group-item-heading p{
+margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.firstP{
+  padding-top: 5px;
 }
 /*# sourceMappingURL=style.css.map */

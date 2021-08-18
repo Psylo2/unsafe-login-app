@@ -11,9 +11,11 @@
                 {% for user in users %}
                     <div class="list-group-items list-group-items--decor">
                         <div class="list-group-item-heading" id="{{ user._name }}">
-                            <p>
-                                Username: {{ user._name }}<br>
-                                E-mail: {{ user._email }}<br>
+                            <p class="firstP">
+                                Username: {{ user._name }}
+                                 </p>
+                             <p>
+                                E-mail: {{ user._email }}
                             </p>
 
                             {% if user._blocked == 0 %}
