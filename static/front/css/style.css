@@ -140,6 +140,7 @@ body {
   display: inline;
   max-width: 400px;
   max-height: 200px;
+  margin-top: 3em;
 }
 .form__inner-wrapper{
   display: flex;
@@ -395,7 +396,9 @@ html{
 .form {
   margin: 25px 0 0 35px;
 }
-
+.form-menu{
+  margin-top:3em;
+}
 @media screen and (max-width: 685px) {
   .carousel {
     border: none;
@@ -716,5 +719,14 @@ margin-bottom: 10px;
 }
 .firstP{
   padding-top: 5px;
+}
+.mt-3{
+  margin:3rem 0 3rem 0!important;
+}
+input{
+  outline: none!important;
+}
+.boldSpam{
+  font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */

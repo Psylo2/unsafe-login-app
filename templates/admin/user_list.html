@@ -12,21 +12,21 @@
                     <div class="list-group-items list-group-items--decor">
                         <div class="list-group-item-heading" id="{{ user._name }}">
                             <p class="firstP">
-                                Username: {{ user._name }}
+                                <span class="boldSpam">Username:</span> {{ user._name }}
                                  </p>
                              <p>
-                                E-mail: {{ user._email }}
+                               <span class="boldSpam"> E-mail:</span>  {{ user._email }}
                             </p>
 
                             {% if user._blocked == 0 %}
                                 <p>
-                                    Blocked: False
+                                   <span class="boldSpam"> Blocked:</span> False
                                 </p>
                                 <a class="button button--block"
                                    href="{{ url_for('admin.block_user', block=user._name) }}">Block User</a>
                             {% else %}
                                 <p>
-                                    Blocked: True
+                                   <span class="boldSpam"> Blocked: </span>True
                                 </p>
                                 <a class="button button--unblock"
                                    href="{{ url_for('admin.unblock_user', unblock=user._name) }}">Unblock User</a>
