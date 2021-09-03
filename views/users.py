@@ -1,4 +1,4 @@
-from flask import Blueprint, url_for, render_template, redirect, session
+from flask import Blueprint, url_for, render_template, redirect
 
 import logic.user_logic as UserLogic
 
