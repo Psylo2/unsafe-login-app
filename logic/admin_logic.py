@@ -1,6 +1,6 @@
 from flask import request, url_for, redirect, flash, render_template
-from logic.user_logic import Password
 from models.user import User
+from models.password import PasswordConfig
 
 
 def users_list():
@@ -46,7 +46,7 @@ def password_configuration():
         password_history = request.form['history']
         password_tries = request.form['tries']
 
-        Password._set_config(length=password_length,
+        PasswordConfig._set_config(length=password_length,
                              regex=re,
                              history=password_history,
                              dictionary=use_dict,

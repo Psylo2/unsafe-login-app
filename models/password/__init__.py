@@ -1,1 +1,1 @@
-from models.password.password import Password
+from models.password.password import Password, PasswordConfig

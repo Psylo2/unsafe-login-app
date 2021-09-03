@@ -32,7 +32,7 @@ Deployed over Docker, inorder to contain a safety lab environment
 ## Home
 
 endpoint: `/`\
-![Home](https://user-images.githubusercontent.com/71320956/128612948-87c16955-b0cb-451b-95ac-9ef09cde5ca4.PNG)
+![Home](https://user-images.githubusercontent.com/71320956/132021532-a0627e90-6b8b-4986-b463-d527121cdbd1.png)
 
 
 ## User
@@ -43,7 +43,7 @@ User Register by given _Name_, _E-mail_, _Password_ and _re-Password_
 
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/register`
-![Register](https://user-images.githubusercontent.com/71320956/128612974-48a73d9a-335d-43ee-85d8-12c54adee72f.PNG)
+![Register](https://user-images.githubusercontent.com/71320956/132022005-2f2ef168-eca6-4b47-be77-e3874cc761c7.png)
 
 __CSRF attack on endpoint:__
 ````
@@ -63,14 +63,14 @@ User Login by given _Name\Email_ and _Password_
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/login`
 
-![Login](https://user-images.githubusercontent.com/71320956/128613001-3d4da68d-239e-4a2c-9cb8-8ac8b78ef9a1.PNG)
+![Login](https://user-images.githubusercontent.com/71320956/132021786-a0692f42-5684-443d-9e47-1c41ade33482.png)
 __CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'name_email=Hacker' -F'password=AAaa1212@!12' 
 http://127.0.0.1:5000/users/login
 ````
 __Result of attack:__\
-![HackerLogin](https://user-images.githubusercontent.com/71320956/128613003-aa2d78aa-4a79-451f-84d6-a0a72b0169df.PNG)
+![HackerLogin](https://user-images.githubusercontent.com/71320956/132028332-a50810ff-ff66-4d7c-9aae-61b58ccc2ef5.png)
 
 ### Change Password
 
@@ -79,7 +79,7 @@ User Change Password by given _Username_, _E-mail_, _New Password_ and _re-Passw
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/users/change_password`
 
-![ChangePassword](https://user-images.githubusercontent.com/71320956/128613009-17531174-2d74-4d45-a03c-2272917365bc.PNG)
+![ChangePassword](https://user-images.githubusercontent.com/71320956/132022600-dc246f61-4f28-44cd-b211-d8e4a6c5473d.png)
 __CSRF attack on endpoint:__
 ````
 $ curl -X POST -F 'username=Hacker' -F 'email=yougot@HACKED.com' 
@@ -96,7 +96,7 @@ User Logout
 
 __methods:__ `GET`\
 __endpoint:__ `/users/logout`
-![AfterUserLogin](https://user-images.githubusercontent.com/71320956/128613030-143e994e-e4ed-4eb4-b8b5-2d9aa5479443.PNG)
+![Logout](https://user-images.githubusercontent.com/71320956/132023375-5e99e325-8b4d-4442-8b9b-710505dfeb8a.png)
 
 ## Admin
 
@@ -105,7 +105,7 @@ __endpoint:__ `/users/logout`
 __methods:__ `GET`\
 __endpoint:__ `/admin/menu`
 
-![AdminMenu](https://user-images.githubusercontent.com/71320956/128613037-286c71ef-8872-4de2-9754-b1c94eddbb96.PNG)
+![AdminMenu](https://user-images.githubusercontent.com/71320956/132023684-0d6a389c-528a-430b-95b1-f89cc7cc7581.png)
 
 ### User's List
 
@@ -114,7 +114,7 @@ Display all registered users & __Block/Unblock__ users
 __methods:__ `GET`\
 __endpoint:__ `/admin/all_users`
 
-![UsersList](https://user-images.githubusercontent.com/71320956/128613054-b72342c5-5f27-47d0-b48d-fe734f4b6339.PNG)
+![UsersList](https://user-images.githubusercontent.com/71320956/132024331-fa5fb0f4-97ba-42c1-afe2-a515b37d6e4b.png)
 
 ### Password Configuration
 
@@ -128,7 +128,7 @@ Change password configuration:
 __methods:__ `GET`, `POST`\
 __endpoint:__ `/admin/password_config`
 
-![PasswordConfiguration](https://user-images.githubusercontent.com/71320956/128613057-39b79463-7f29-4bdc-bc55-f6d82e6c8a24.PNG)
+![PasswordConfiguration](https://user-images.githubusercontent.com/71320956/132024704-0e2f0304-a427-4671-9132-be957b3d5477.png)
 
 __CSRF attack on endpoint:__
 ````
