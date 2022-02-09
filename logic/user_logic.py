@@ -1,85 +1,97 @@
-from flask import request, url_for, redirect, flash, session
-from utils.valid_utils import LoginUtils, RegisterUtils
-from models.user import User
+from flask import request, flash, session
+
+from usecases import UserUseCase
+from logic.services import UserLogicService
+
+from models.user import User, UserValidator
 from models.password import Password
 
 
-def login():
-    try:
-        name_email = request.form['name_email']
-        password = request.form['password']
+class UserLogic(UserUseCase, UserLogicService):
+    def __init__(self):
+        self._validator = UserValidator()
 
-        if LoginUtils._valid_login(name_email, password):
+    def login(self) -> bool:
+        name_email = request.form.get('name_email')
+        password = request.form.get('password')
+
+        if self._is_valid_login(name_email, password):
             user = User.find_from_db(name_email)
-            user_pas = Password.find_from_db(name=user._name)
+            user_pas = Password.find_from_db(name=user.name)
             if user and user_pas._current_password == password:
                 session.clear()
-                session['name_email'] = user._name
-                flash(f'Welcome {user._name}', 'danger')
+                session['name_email'] = user.name
+                flash(f'Welcome {user.name}', 'danger')
 
-                return redirect(url_for('home'))
+                return True
 
-    except Exception as e:
-        print(e)
         flash('Invalid Inputs', 'danger')
-    return redirect(url_for('users.login_get'))
+        return False
 
+    def register(self) -> bool:
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        re_password = request.form.get('re_password')
 
-def register():
-    try:
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        re_password = request.form['re_password']
-
-        if RegisterUtils._valid_register(username, email,
-                                         password, re_password):
+        if self._is_valid_register(username=username, email=email,
+                                   password=password, re_password=re_password):
             user = User(username, email, 0)
             user.save_to_db()
-            pas = Password(username=user._name)
+            pas = Password(username=user.name)
             if pas.confirm_password(password):
                 pas._current_password = password
                 pas.save_to_db()
-            else:
-                flash('Password dont meet complexity!', 'danger')
-                return redirect(url_for('users.login_get'))
+                flash('Registration Success!', 'danger')
+                return True
 
-            flash('Registration Succsess!', 'danger')
-        return redirect(url_for('users.login_get'))
+            flash('Password dont meet complexity!', 'danger')
+            return False
 
-    except Exception as e:
-        print(e)
         flash('Invalid Inputs', 'danger')
-        return redirect(url_for('users.register_get'))
+        return False
 
+    def change_password(self) -> bool:
+            username = request.form.get('username')
+            email = request.form.get('email')
+            password = request.form.get('password')
+            re_password = request.form.get('re_password')
 
-def change_password():
-    try:
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        re_password = request.form['re_password']
+            if self._is_valid_register(username=username, email=email,
+                                       password=password, re_password=re_password):
+                user = User.find_from_db(username)
+                if user:
+                    new_passw = Password(username=username)
+                    if new_passw.confirm_password(password):
+                        new_order = new_passw.order_new_password(username=user.name,
+                                                                 password=password)
+                        new_passw.update_to_db(new_order)
+                        flash('Password Changed!', 'danger')
+                        return True
 
-        if RegisterUtils._valid_register(username, email,
-                                         password, re_password):
-            user = User.find_from_db(username)
-            if user:
-                new_passw = Password(username=username)
-                if new_passw.confirm_password(password):
-                    new_order = new_passw.order_new_password(
-                        username=user._name,
-                        password=password)
+            flash('Invalid Inputs', 'danger')
+            return False
 
-                    new_passw.update_to_db(new_order)
-                    flash('Password Changed!', 'danger')
-        return redirect(url_for('home'))
+    def logout(self) -> None:
+        flash('Farewell', 'danger')
+        session['name_email'] = None
 
-    except Exception as e:
-        print(e)
-        flash('Invalid Inputs', 'danger')
-        return redirect(url_for('users.change_password_get'))
+    def _is_valid_login(self, name_email: str, password: str) -> bool:
+        return True if self._valid_login(name_email=name_email,
+                                         password=password) else False
 
+    def _is_valid_register(self, username: str, email: str, password: str, re_password: str) -> bool:
+        return True if self._valid_register(username=username, email=email,
+                                            password=password, re_password=re_password) else False
 
-def logout():
-    flash('Farwell', 'danger')
-    session['name_email'] = None
+    def _valid_login(self, name_email: str, password: str) -> bool:
+        return (self._validator.is_valid_email(email=name_email) or
+                self._validator.is_valid_username(username=name_email)) and \
+               self._validator.is_valid_password(password=password)
+
+    def _valid_register(self, username: str, email: str, password: str, re_password: str) -> bool:
+        return self._validator.is_valid_username(username) and \
+               self._validator.is_valid_email(email) and \
+               self._validator.is_valid_password(password) and \
+               self._validator.is_valid_password(re_password) and \
+               password == re_password

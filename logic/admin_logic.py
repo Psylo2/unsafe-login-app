@@ -1,60 +1,53 @@
-from flask import request, url_for, redirect, flash, render_template
+from typing import Dict
+
+from flask import request, flash
+
+from usecases import AdminUseCase
+from logic.services import AdminLogicService
 from models.user import User
 from models.password import PasswordConfig
 
 
-def users_list():
-    _users = User.find_all_from_db()
-    return render_template('admin/user_list.html', users=_users)
+class AdminLogic(AdminUseCase, AdminLogicService):
+    def __init__(self):
+        pass
 
+    def users_list(self) -> str:
+        users = User.find_all_from_db()
+        return users
 
-def block_user(block):
-    user = User.find_from_db(block)
-    user.block_user_model()
+    def block_user(self, block) -> None:
+        user = User.find_from_db(block)
+        user.block_user_model()
 
+    def unblock_user(self, unblock) -> None:
+        user = User.find_from_db(unblock)
+        user.unblock_user_model()
 
-def unblock_user(unblock):
-    user = User.find_from_db(unblock)
-    user.unblock_user_model()
+    def password_configuration(self) -> None:
+        configurations = self.extract_configuration_fields(data=request.form)
+        result = PasswordConfig.set_config(**configurations)
+        if result:
+            flash('Password Configuration Changed!', 'danger')
+            return None
 
-
-def password_configuration():
-    re = ""
-    try:
-        try:
-            re += "A-Z" if request.form['upper'] == "1" else ""
-        except:
-            pass
-        try:
-            re += "a-z" if request.form['lower'] == "1" else ""
-        except:
-            pass
-        try:
-            re += "0-9" if request.form['digits'] == "1" else ""
-        except:
-            pass
-        try:
-            re += "\!\#\$\%\^\&\*\_\+\.\," if request.form['spec'] == "1" else ""
-        except:
-            pass
-        try:
-            use_dict = True if request.form['use_dict'] == "1" else False
-        except:
-            use_dict = False
-
-        password_length = request.form['length']
-        password_history = request.form['history']
-        password_tries = request.form['tries']
-
-        PasswordConfig._set_config(length=password_length,
-                             regex=re,
-                             history=password_history,
-                             dictionary=use_dict,
-                             tries=password_tries)
-        
-        flash('Password Configuration Changed!', 'danger')
-
-    except Exception as e:
-        print(e)
         flash('Invalid Inputs', 'danger')
-    return redirect(url_for('admin.password_conf_get'))
+
+    def configure_regex(self, data: Dict) -> str:
+        re = ""
+        re += "A-Z" if data.get('upper') == "1" else ""
+        re += "a-z" if data.get('lower') == "1" else ""
+        re += "0-9" if data.get('digits') == "1" else ""
+        re += "\!\#\$\%\^\&\*\_\+\.\," if data.get('spec') == "1" else ""
+        return re
+
+    def extract_configuration_fields(self, data: dict) -> Dict:
+        regex = self.configure_regex(data=data)
+        use_dict = True if request.form.get('use_dict') == "1" else False
+        return {
+            "dictionary": use_dict,
+            "regex": regex,
+            "length": data.get('length'),
+            "history": data.get('history'),
+            "tries": data.get('tries')
+        }
