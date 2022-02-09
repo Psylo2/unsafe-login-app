@@ -1,2 +1,2 @@
-from models.user.user import User
-from models.user.decorator import requires_login
+from models.user.user import User, UserValidator
+
