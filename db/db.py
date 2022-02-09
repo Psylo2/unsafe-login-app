@@ -1,8 +1,10 @@
+from typing import List
+
 from db.queries import (sqlite3, CREATE_USERS_TABLE, CREATE_PASSWORDS_TABLE,
                         BLOCK_USER, INSERT_PASSWORD, INSERT_USER,
                         SELECT_ALL_PASSWORDS, SELECT_ALL_USERS, SELECT_PASSWORD,
                         SELECT_USER, UPDATE_PASSWORD)
-from typing import List
+
 
 connection = sqlite3.connect("login.db", check_same_thread=False)
 
@@ -62,7 +64,7 @@ def update_password(password: tuple) -> None:
         connection.commit()
 
 
-def get_headers(database: str) -> List:
+def get_headers(table: str) -> List:
     with connection:
-        cursor = connection.execute(f"select * from {database};")
+        cursor = connection.execute(f"select * from {table};")
         return list(map(lambda x: x[0], cursor.description))
